@@ -8,7 +8,7 @@ endif
 
 CC = riscv-none-elf-gcc
 CFLAGS += -std=gnu99
-CFLAGS += -march=rv32im
+CFLAGS += -march=rv32imfac
 CFLAGS += -mabi=ilp32
 
 override CC := $(shell which $(CC))
