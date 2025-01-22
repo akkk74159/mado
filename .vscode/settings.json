@@ -1,0 +1,8 @@
+{
+    "files.associations": {
+        "jpeglib.h": "c",
+        "endian.h": "c",
+        "time.h": "c",
+        "random": "cpp"
+    }
+}
