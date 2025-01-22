@@ -7,6 +7,9 @@ config CONFIGURED
 choice
     prompt "Backend Selection"
     default BACKEND_SDL
+    
+config BACKEND_rv32emu
+    bool "rv32emu output support"
 
 config BACKEND_FBDEV
     bool "Linux framebuffer support"
