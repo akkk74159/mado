@@ -6,11 +6,7 @@
 
 #include <stdlib.h>
 
-#if defined(__APPLE__)
 #include <machine/endian.h>
-#else
-#include <endian.h>
-#endif
 
 #include "twin_private.h"
 
