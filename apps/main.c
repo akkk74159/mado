@@ -81,12 +81,28 @@ static void sigint_handler(int sig)
     cleanup();
     exit(1);
 }
-
+#include "../backend/rv32emu.c"
 int main(void)
 {
-    tx = twin_create(WIDTH, HEIGHT);
-    if (!tx)
-        return 1;
+	enum { W = 640, H = 480 };
+    uint32_t buf[W * H];
+    struct mado m = {.title = "mado", .width = W, .height = H, .buf = buf};
+    mado_open(&m);
+    uint32_t t = 0;
+    while(mado_loop(&m) == 0){
+        t++;
+        for (int i = 0; i < 320; i++) {
+            for (int j = 0; j < 240; j++)
+                mado_pixel(&m, i, j) = i ^ j ^ t; /* Munching squares */
+        }
+        mado_sleep(100);
+    }
+    mado_close(&m);
+    return 0;
+    
+    //tx = twin_create(WIDTH, HEIGHT);
+    //if (!tx)
+    //    return 1;
 
     /* Register the callback function to release allocated resources when SIGINT
      * is caught or the program is about to exit.
@@ -132,7 +148,7 @@ int main(void)
     apps_image_start(tx->screen, "Viewer", 20, 20);
 #endif
 
-    twin_dispatch(tx);
+    //twin_dispatch(tx);
 
     return 0;
 }
