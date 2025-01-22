@@ -6,6 +6,11 @@ ifdef CROSS_COMPILE
 CC := $(CROSS_COMPILE)gcc
 endif
 
+CC = riscv-none-elf-gcc
+CFLAGS += -std=gnu99
+CFLAGS += -march=rv32im
+CFLAGS += -mabi=ilp32
+
 override CC := $(shell which $(CC))
 ifndef CC
 $(error "Valid C compiler not found.")
