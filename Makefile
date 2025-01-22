@@ -72,14 +72,18 @@ endif
 
 ifeq ($(CONFIG_LOADER_JPEG), y)
 libtwin.a_files-y += src/image-jpeg.c
-libtwin.a_cflags-y += $(shell pkg-config --cflags libjpeg)
-TARGET_LIBS += $(shell pkg-config --libs libjpeg)
+libtwin.a_cflags-y += -I$(HOME)/.local/xPacks/@xpack-dev-tools/riscv-none-elf-gcc/14.2.0-2.1/.content/riscv-none-elf/include
+TARGET_LIBS += -L$(HOME)/.local/xPacks/@xpack-dev-tools/riscv-none-elf-gcc/14.2.0-2.1/.content/riscv-none-elf/lib/libjpeg.a
+#libtwin.a_cflags-y += $(shell pkg-config --cflags libjpeg)
+#TARGET_LIBS += $(shell pkg-config --libs libjpeg)
 endif
 
 ifeq ($(CONFIG_LOADER_PNG), y)
 libtwin.a_files-y += src/image-png.c
-libtwin.a_cflags-y += $(shell pkg-config --cflags libpng)
-TARGET_LIBS += $(shell pkg-config --libs libpng)
+libtwin.a_cflags-y += -I$(HOME)/.local/xPacks/@xpack-dev-tools/riscv-none-elf-gcc/14.2.0-2.1/.content/riscv-none-elf/include
+TARGET_LIBS += -L$(HOME)/.local/xPacks/@xpack-dev-tools/riscv-none-elf-gcc/14.2.0-2.1/.content/riscv-none-elf/lib/libpng.a
+#libtwin.a_cflags-y += $(shell pkg-config --cflags libpng)
+#TARGET_LIBS += $(shell pkg-config --libs libpng)
 endif
 
 ifeq ($(CONFIG_LOADER_GIF), y)
@@ -107,6 +111,12 @@ libapps.a_includes-y := include
 # Graphical backends
 
 BACKEND := none
+
+ifeq ($(CONFIG_BACKEND_rv32emu), y)
+BACKEND = rv32emu
+libtwin.a_files-y += backend/rv32emu.c
+#libtwin.a_cflags-y += -I$(HOME)/.local/xPacks/@xpack-dev-tools/riscv-none-elf-gcc/14.2.0-2.1/.content/riscv-none-elf/include
+endif
 
 ifeq ($(CONFIG_BACKEND_SDL), y)
 BACKEND = sdl
